@@ -3,7 +3,7 @@ highlight clear
 if exists("syntax_on")
     syntax reset
 endif
-let g:colors_name="spartan"
+let g:colors_name="improved-spartan"
 
 " System colors
 " 0 1 2  3  4  5  6  7
@@ -39,10 +39,13 @@ let messenger         = 101 " 58 60 95
 let white             = 255
 let arcadian          = 29
 let leonidas          = 88
+let lightleonidas     = 87
 let dilios            = 58
 
+let s:colormap={255: '#EEEEEE', 234: '#1c1c1c', 239: '#4e4e4e', 245: '#8a8a8a', 236: '#303030', 66: '#5F8787', 101: '#87875F', 29: '#00875F', 88: '#870000', 58: '#5F5F00', 'none': 'NONE', 87: '#00875F'}
+
 function! s:HL(item, fgColor, bgColor, style)
-    execute 'hi ' . a:item . ' ctermfg=' . a:fgColor . ' ctermbg=' . a:bgColor . ' cterm=' . a:style
+    execute 'hi ' . a:item . ' ctermfg=' . a:fgColor . ' ctermbg=' . a:bgColor . ' guifg= ' . s:colormap[a:fgColor] . ' guibg= ' . s:colormap[a:bgColor] . ' cterm=' . a:style
 endfunction
 
 call s:HL('Normal',       defaultForeground, defaultBackground, 'none')      " Normal text
@@ -127,20 +130,47 @@ call s:HL('pythonInclude',     defaultForeground, defaultBackground, 'none')
 call s:HL('pythonPreCondit',   defaultForeground, defaultBackground, 'none')
 call s:HL('pythonExClass',     defaultForeground, defaultBackground, 'none')
 call s:HL('pythonDecorator',   defaultForeground, defaultBackground, 'none')
+call s:HL('pythonBuiltin',     lightleonidas,     defaultBackground, 'none')
+call s:HL('pythonOperator',    lightleonidas, defaultBackground, 'none')
 
 " Javascript specific highlighting
-call s:HL('jsFunction',    defaultForeground, defaultBackground, 'none')
-call s:HL('jsFuncCall',    defaultForeground, defaultBackground, 'none')
-call s:HL('jsConditional', defaultForeground, defaultBackground, 'none')
-call s:HL('jsRepeat',      defaultForeground, defaultBackground, 'none')
-call s:HL('jsNumber',      defaultForeground, defaultBackground, 'none')
-call s:HL('jsMember',      defaultForeground, defaultBackground, 'none')
+call s:HL('jsFunction',     defaultForeground, defaultBackground, 'none')
+call s:HL('jsFuncCall',     defaultForeground, defaultBackground, 'none')
+call s:HL('jsConditional',  defaultForeground, defaultBackground, 'none')
+call s:HL('jsRepeat',       defaultForeground, defaultBackground, 'none')
+call s:HL('jsNumber',       defaultForeground, defaultBackground, 'none')
+call s:HL('jsMember',       defaultForeground, defaultBackground, 'none')
+call s:HL('jsModules',      defaultForeground, defaultBackground, 'none')
+call s:HL('jsModuleWords',  defaultForeground, defaultBackground, 'none')
 
 " Html specific highlighting
-call s:HL('htmlTag',        defaultForeground, defaultBackground, 'none')
-call s:HL('htmlTagName',    defaultForeground, defaultBackground, 'none')
-call s:HL('htmlArg',        defaultForeground, defaultBackground, 'none')
-call s:HL('htmlScriptTag',  defaultForeground, defaultBackground, 'none')
+call s:HL('htmlTag',       defaultForeground, defaultBackground, 'none')
+call s:HL('htmlTagName',   defaultForeground, defaultBackground, 'none')
+call s:HL('htmlArg',       defaultForeground, defaultBackground, 'none')
+call s:HL('htmlScriptTag', defaultForeground, defaultBackground, 'none')
+call s:HL('htmlH',         defaultForeground, defaultBackground, 'none')
+call s:HL('htmlH1',        defaultForeground, defaultBackground, 'none')
+call s:HL('htmlH2',        defaultForeground, defaultBackground, 'none')
+call s:HL('htmlH3',        defaultForeground, defaultBackground, 'none')
+call s:HL('htmlH4',        defaultForeground, defaultBackground, 'none')
+call s:HL('htmlHead',      defaultForeground, defaultBackground, 'none')
+call s:HL('htmlTitle',     defaultForeground, defaultBackground, 'none')
+
+" CSS specific highlighting
+call s:HL('cssDefinition',      defaultForeground, defaultBackground, 'none')
+call s:HL('cssAttrRegion',      defaultForeground, defaultBackground, 'none')
+call s:HL('cssCommonAttr',      defaultForeground, defaultBackground, 'none')
+call s:HL('cssAttr',            defaultForeground, defaultBackground, 'none')
+call s:HL('lessDefinition',     defaultForeground, defaultBackground, 'none')
+call s:HL('lessNestedSelector', defaultForeground, defaultBackground, 'none')
+call s:HL('lessClass',          defaultForeground, defaultBackground, 'none')
+call s:HL('cssPseudoClass',     defaultForeground, defaultBackground, 'none')
+call s:HL('cssPseudoClassId',   defaultForeground, defaultBackground, 'none')
+call s:HL('cssColor',           defaultForeground, defaultBackground, 'none')
+call s:HL('lessVariableValue',  defaultForeground, defaultBackground, 'none')
+call s:HL('cssInclude',         defaultForeground, defaultBackground, 'none')
+call s:HL('cssIncludeKeyword',  defaultForeground, defaultBackground, 'none')
+call s:HL('cssVendor',          defaultForeground, defaultBackground, 'none')
 
 " Clojure specific highlighting
 call s:HL('clojureConsmessengert', defaultForeground, defaultBackground, 'none')
@@ -179,10 +209,21 @@ call s:HL('rubySymbol',     defaultForeground, defaultBackground, 'none')
 call s:HL('rubyKeyword',    defaultForeground, defaultBackground, 'none')
 
 " SQL specific highlighting
-call s:HL('sqlKeyword',   white, 'none', 'bold')
-call s:HL('sqlFunction',  white, 'none', 'bold')
-call s:HL('sqlStatement', white, 'none', 'bold')
-call s:HL('sqlSpecial',   white, 'none', 'bold')
+call s:HL('sqlKeyword',   defaultForeground, defaultBackground, 'none')
+call s:HL('sqlFunction',  defaultForeground, defaultBackground, 'none')
+call s:HL('sqlStatement', defaultForeground, defaultBackground, 'none')
+call s:HL('sqlSpecial',   defaultForeground, defaultBackground, 'none')
+
+" Bash specific highlighting
+call s:HL('shIf',             defaultForeground, defaultBackground, 'none')
+call s:HL('shDerefSimple',    defaultForeground, defaultBackground, 'none')
+call s:HL('shDeref',          defaultForeground, defaultBackground, 'none')
+call s:HL('zshDeref',         defaultForeground, defaultBackground, 'none')
+call s:HL('shShellVariables', defaultForeground, defaultBackground, 'none')
+call s:HL('zshString',        defaultForeground, defaultBackground, 'none')
+call s:HL('zshSubst',         defaultForeground, defaultBackground, 'none')
+call s:HL('zshSubstDelim',    defaultForeground, defaultBackground, 'none')
+
 
 " Used for wiki plugin
 call s:HL('WikiLink',         persian,  'none', 'underline')
